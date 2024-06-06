@@ -17,6 +17,7 @@ import { Loading } from './src/components/Loading';
 import theme from './src/theme';
 import { REALM_APP_ID } from './src/configs';
 import { Routes } from './src/routes';
+import { RealmProvider } from './src/libs/realm';
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
@@ -35,7 +36,9 @@ export default function App() {
             translucent
           />
           <UserProvider fallback={SignIn}>
-            <Routes />
+            <RealmProvider>
+              <Routes />
+            </RealmProvider>
           </UserProvider>
         </SafeAreaProvider>
       </ThemeProvider>
