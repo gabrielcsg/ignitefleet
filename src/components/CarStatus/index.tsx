@@ -1,4 +1,3 @@
-import React from 'react';
 import { TouchableOpacityProps } from 'react-native';
 import { useTheme } from 'styled-components/native';
 import { Key, Car } from 'phosphor-react-native';
