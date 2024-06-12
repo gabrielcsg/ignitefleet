@@ -15,11 +15,11 @@ type Props = TouchableOpacityProps & {
   data: HistoricCardProps;
 };
 
-export function HistoricCard({ data }: Props) {
+export function HistoricCard({ data, ...rest }: Props) {
   const { COLORS } = useTheme();
 
   return (
-    <Styles.Container>
+    <Styles.Container activeOpacity={0.7} {...rest}>
       <Styles.Info>
         <Styles.LicensePlate>{data.licensePlate}</Styles.LicensePlate>
 
