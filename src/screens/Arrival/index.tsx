@@ -70,14 +70,14 @@ export function Arrival() {
         <Styles.LicensePlate>{historic?.license_plate}</Styles.LicensePlate>
         <Styles.Label>Finalidade</Styles.Label>
         <Styles.Description>{historic?.description}</Styles.Description>
-
-        {historic?.status === 'departure' && (
-          <Styles.Footer>
-            <ButtonIcon icon={X} onPress={handleRemoveVehicleUsage} />
-            <Button title="Registrar Chegada" onPress={handleArrivalRegister} />
-          </Styles.Footer>
-        )}
       </Styles.Content>
+
+      {historic?.status === 'departure' && (
+        <Styles.Footer>
+          <ButtonIcon icon={X} onPress={handleRemoveVehicleUsage} />
+          <Button title="Registrar Chegada" onPress={handleArrivalRegister} />
+        </Styles.Footer>
+      )}
     </Styles.Container>
   );
 }
