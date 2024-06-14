@@ -20,6 +20,8 @@ import theme from './src/theme';
 import { REALM_APP_ID } from './src/configs';
 import { Routes } from './src/routes';
 import { RealmProvider, syncConfig } from './src/libs/realm';
+import { TopMessage } from './src/components/TopMessage';
+import { WifiSlash } from 'phosphor-react-native';
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
@@ -39,6 +41,7 @@ export default function App() {
             backgroundColor="transparent"
             translucent
           />
+          <TopMessage title="Você está offline" icon={WifiSlash} />
           <UserProvider fallback={SignIn}>
             <RealmProvider sync={syncConfig} fallback={Loading}>
               <Routes />
