@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, FlatList } from 'react-native';
+import { ProgressDirection, ProgressMode } from 'realm';
+import dayjs from 'dayjs';
+
 import { useNavigation } from '@react-navigation/native';
+import { useUser } from '@realm/react';
 
 import * as Styles from './styles';
 
@@ -9,9 +13,11 @@ import { CarStatus } from '../../components/CarStatus';
 
 import { useQuery, useRealm } from '../../libs/realm';
 import { Historic } from '../../libs/realm/schemas/Historic';
+import {
+  getLastSyncTimestamp,
+  saveLastSyncTimestamp,
+} from '../../libs/asyncStorage/syncStorage';
 import { HistoricCard, HistoricCardProps } from '../../components/HistoricCard';
-import dayjs from 'dayjs';
-import { useUser } from '@realm/react';
 
 export function Home() {
   const { navigate } = useNavigation();
@@ -45,16 +51,19 @@ export function Home() {
     }
   }
 
-  function fetchHistoric() {
+  async function fetchHistoric() {
     try {
       const response = historic.filtered(
         "status = 'arrival' SORT(created_at DESC)"
       );
+
+      const lastSync = await getLastSyncTimestamp();
+
       const formattedHistoric = response.map((item) => {
         return {
           id: item._id!.toString(),
           licensePlate: item.license_plate,
-          isSync: false,
+          isSync: lastSync > item.updated_at!.getTime(),
           created: dayjs(item.created_at).format(
             '[Saída em] DD/MM/YYYY [às] HH:mm'
           ),
@@ -69,6 +78,18 @@ export function Home() {
 
   function handleHistoricDetails(id: string) {
     navigate('arrival', { id });
+  }
+
+  async function progressNotification(
+    transferred: number,
+    transferable: number
+  ) {
+    const percentage = (transferred / transferable) * 100;
+
+    if (percentage === 100) {
+      await saveLastSyncTimestamp();
+      fetchHistoric();
+    }
   }
 
   useEffect(() => {
@@ -98,6 +119,22 @@ export function Home() {
       mutableSubs.add(historicByUserQuery, { name: 'historic_by_user' });
     });
   }, [realm]);
+
+  useEffect(() => {
+    const syncSession = realm.syncSession;
+
+    if (!syncSession) {
+      return;
+    }
+
+    syncSession.addProgressNotification(
+      ProgressDirection.Upload,
+      ProgressMode.ReportIndefinitely,
+      progressNotification
+    );
+
+    return () => syncSession.removeProgressNotification(progressNotification);
+  }, []);
 
   return (
     <Styles.Container>
