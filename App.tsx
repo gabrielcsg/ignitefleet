@@ -4,6 +4,7 @@ import { StatusBar } from 'react-native';
 import { ThemeProvider } from 'styled-components/native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
+import { useNetInfo } from '@react-native-community/netinfo';
 import { AppProvider, UserProvider } from '@realm/react';
 
 import {
@@ -25,6 +26,7 @@ import { WifiSlash } from 'phosphor-react-native';
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
+  const netInfo = useNetInfo();
 
   if (!fontsLoaded) {
     return <Loading />;
@@ -41,7 +43,9 @@ export default function App() {
             backgroundColor="transparent"
             translucent
           />
-          <TopMessage title="Você está offline" icon={WifiSlash} />
+          {!netInfo.isConnected && (
+            <TopMessage title="Você está offline" icon={WifiSlash} />
+          )}
           <UserProvider fallback={SignIn}>
             <RealmProvider sync={syncConfig} fallback={Loading}>
               <Routes />
