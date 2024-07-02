@@ -24,7 +24,9 @@ module.exports = {
       },
       package: 'com.gabrielcsg.ignitefleet',
       config: {
-        googleMaps: process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY,
+        googleMaps: {
+          apiKey: process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY,
+        },
       },
     },
     web: {

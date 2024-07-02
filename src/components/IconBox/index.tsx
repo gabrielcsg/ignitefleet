@@ -1,4 +1,3 @@
-import React from 'react';
 import * as Styles from './styles';
 import { IconProps } from 'phosphor-react-native';
 import { useTheme } from 'styled-components/native';

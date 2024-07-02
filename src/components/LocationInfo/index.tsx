@@ -1,4 +1,3 @@
-import React from 'react';
 import * as Styles from './styles';
 import { IconBox, IconBoxProps } from '../IconBox';
 
