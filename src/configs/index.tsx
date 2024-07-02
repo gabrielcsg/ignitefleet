@@ -7,4 +7,7 @@ export const GOOGLE_IOS_CLIENT_ID =
 export const GOOGLE_WEB_CLIENT_ID =
   process.env.EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID || '';
 
+export const GOOGLE_MAPS_API_KEY =
+  process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY || '';
+
 export const REALM_APP_ID = process.env.EXPO_PUBLIC_REALM_APP_ID || '';

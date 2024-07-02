@@ -47,12 +47,13 @@ npm install
 Create a .env file in the root directory and add your MongoDB Atlas and Google Authentication credentials.
 ```bash
 # Google Cloud Platform
-EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID=
-EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID=
-EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID=
+EXPO_PUBLIC_GOOGLE_ANDROID_CLIENT_ID=your_key
+EXPO_PUBLIC_GOOGLE_IOS_CLIENT_ID=your_key
+EXPO_PUBLIC_GOOGLE_WEB_CLIENT_ID=your_key
+EXPO_PUBLIC_GOOGLE_MAPS_API_KEY=your_key
 
 # MongoDB Atlas
-EXPO_PUBLIC_REALM_APP_ID=
+EXPO_PUBLIC_REALM_APP_ID=your_key
 ```
 
 **Start the development server:**
