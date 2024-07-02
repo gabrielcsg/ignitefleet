@@ -5,6 +5,7 @@ import { useUser } from '@realm/react';
 import { useNavigation } from '@react-navigation/native';
 import {
   LocationAccuracy,
+  LocationObjectCoords,
   LocationSubscription,
   useForegroundPermissions,
   watchPositionAsync,
@@ -14,6 +15,7 @@ import { Car } from 'phosphor-react-native';
 import * as Styles from './styles';
 
 import { Header } from '../../components/Header';
+import { Map } from '../../components/Map';
 import { Loading } from '../../components/Loading';
 import { LocationInfo } from '../../components/LocationInfo';
 import { LicensePlateInput } from '../../components/LicensePlateInput';
@@ -32,6 +34,8 @@ export function Departure() {
   const [description, setDescription] = useState('');
   const [licensePlate, setLicensePlate] = useState('');
   const [currentAddress, setCurrentAddress] = useState<string | null>();
+  const [currentCoords, setCurrentCoords] =
+    useState<LocationObjectCoords | null>(null);
 
   const [isLoadingLocation, setIsLoadingLocation] = useState(true);
   const [isRegistering, setIsRegistering] = useState(false);
@@ -98,6 +102,7 @@ export function Departure() {
         timeInterval: 1000,
       },
       (location) => {
+        setCurrentCoords(location.coords);
         getAddressLocation(location.coords)
           .then((address) => {
             setCurrentAddress(address);
@@ -132,6 +137,7 @@ export function Departure() {
 
       <KeyboardAwareScrollView extraHeight={100}>
         <ScrollView>
+          {currentCoords && <Map coordinates={[currentCoords]} />}
           <Styles.Content>
             {currentAddress && (
               <LocationInfo
