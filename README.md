@@ -56,6 +56,11 @@ EXPO_PUBLIC_GOOGLE_MAPS_API_KEY=your_key
 EXPO_PUBLIC_REALM_APP_ID=your_key
 ```
 
+**Run Expo Prebuild to configure your API KEY:**
+```bash
+npx expo prebuild
+```
+
 **Start the development server:**
 ```bash
 npx expo start
