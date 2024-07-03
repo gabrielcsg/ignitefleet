@@ -74,8 +74,12 @@ export function Arrival() {
   }
 
   async function getLocationsInfo() {
+    if (!historic) {
+      return;
+    }
+
     const lastSync = await getLastSyncTimestamp();
-    const updatedAt = historic!.updated_at.getTime();
+    const updatedAt = historic.updated_at.getTime();
     setDataNotSynced(updatedAt > lastSync);
 
     const locationsStorage = await getStorageLocations();
