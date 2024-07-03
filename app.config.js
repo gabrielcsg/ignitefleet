@@ -12,6 +12,7 @@ module.exports = {
       backgroundColor: '#202024',
     },
     ios: {
+      bundleIdentifier: 'com.gabrielcsg.ignitefleet',
       supportsTablet: true,
       config: {
         googleMapsApiKey: process.env.EXPO_PUBLIC_GOOGLE_MAPS_API_KEY,
