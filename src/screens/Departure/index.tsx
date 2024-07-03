@@ -26,6 +26,7 @@ import { licensePlateValidate } from '../../utils/licensePlateValidate';
 import { getAddressLocation } from '../../utils/getAddressLocation';
 import { useRealm } from '../../libs/realm';
 import { Historic } from '../../libs/realm/schemas/Historic';
+import { startLocationTask } from '../../tasks/backgroundLocationTask';
 
 export function Departure() {
   const realm = useRealm();
@@ -83,6 +84,8 @@ export function Departure() {
           'É necessário que o App tenha acesso a localização em segundo plano. Acesse as configurações do dispositivo e habilite "Permitir o tempo todo".'
         );
       }
+
+      await startLocationTask();
 
       realm.write(() => {
         realm.create(
