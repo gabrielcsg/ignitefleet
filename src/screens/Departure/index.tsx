@@ -22,8 +22,10 @@ import { LocationInfo } from '../../components/LocationInfo';
 import { LicensePlateInput } from '../../components/LicensePlateInput';
 import { TextAreaInput } from '../../components/TextAreaInput';
 import { Button } from '../../components/Button';
+
 import { licensePlateValidate } from '../../utils/licensePlateValidate';
 import { getAddressLocation } from '../../utils/getAddressLocation';
+import { openSettings } from '../../utils/openSettings';
 import { useRealm } from '../../libs/realm';
 import { Historic } from '../../libs/realm/schemas/Historic';
 import { startLocationTask } from '../../tasks/backgroundLocationTask';
@@ -81,7 +83,8 @@ export function Departure() {
         setIsRegistering(false);
         return Alert.alert(
           'Localização',
-          'É necessário que o App tenha acesso a localização em segundo plano. Acesse as configurações do dispositivo e habilite "Permitir o tempo todo".'
+          'É necessário que o App tenha acesso a localização em segundo plano. Acesse as configurações do dispositivo e habilite "Permitir o tempo todo".',
+          [{ text: 'Abrir configurações', onPress: openSettings }]
         );
       }
 
@@ -147,11 +150,15 @@ export function Departure() {
     return (
       <Styles.Container>
         <Header title="Saída" />
-        <Styles.Message>
-          Você precisa permitir que o aplicativo tenha acesso a localização para
-          utilizar essa funcionalidade. Por favor, acesse as configurações do
-          seu dispositivo para concender essa permissão ao aplicativo.
-        </Styles.Message>
+        <Styles.MessageContent>
+          <Styles.Message>
+            Você precisa permitir que o aplicativo tenha acesso a localização
+            para utilizar essa funcionalidade. Por favor, acesse as
+            configurações do seu dispositivo para concender essa permissão ao
+            aplicativo.
+          </Styles.Message>
+          <Button title="Abrir Configurações" onPress={openSettings} />
+        </Styles.MessageContent>
       </Styles.Container>
     );
   }
